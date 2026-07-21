@@ -52,6 +52,15 @@ const DEFAULT_CSS = `/* Custom Theme Styles */
 
 (async () => {
   try {
+    if (location.protocol === 'file:') {
+      markdownInput.value = DEFAULT_TEXT;
+      cssInput.value = DEFAULT_CSS;
+      updatePreview();
+      updateCustomCSS();
+      updateMaxPageNumber();
+      return;
+    }
+
     const res = await fetch('example.txt');
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const text = await res.text();
